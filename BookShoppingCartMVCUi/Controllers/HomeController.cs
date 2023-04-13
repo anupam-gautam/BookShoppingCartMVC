@@ -15,10 +15,19 @@ namespace BookShoppingCartMVCUi.Controllers
             _homeRepository = homeRepository;
         }
 
-        public async Task<IActionResult> Index(string stream = "", int genreId = 0)
+        public async Task<IActionResult> Index(string sterm = "", int genreId = 0)
         {
-            IEnumerable<Book> books = await _homeRepository.GetBooks(stream, genreId);
-            return View(books);
+            IEnumerable<Book> books = await _homeRepository.GetBooks(sterm, genreId);
+            IEnumerable<Genre> genres = await _homeRepository.Genres();
+            var bookModel = new BookDisplayModel
+            {
+                Books = books,
+                Genres = genres,
+                sTerm = sterm,
+                GenreId = genreId
+            };
+
+            return View(bookModel);
         }
 
         public IActionResult Privacy()

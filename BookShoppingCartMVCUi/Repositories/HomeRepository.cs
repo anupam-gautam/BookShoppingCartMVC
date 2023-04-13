@@ -12,6 +12,11 @@ namespace BookShoppingCartMVCUi.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Genre>> Genres()
+        {
+            return await _context.Genres.ToListAsync();
+        }
+
         public async Task<IEnumerable<Book>> GetBooks(string sTerm = "", int genreId = 0)
         {
             sTerm = sTerm.ToLower();
